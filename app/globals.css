@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 8%;
+    --foreground: 0 0% 98%;
+  }
+
+  /* 页面整体背景（外框之外） */
+  body {
+    background: #1c2333;
+    color: #e2e8f0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, system-ui, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  }
+
+  input, textarea, select {
+    color: #e2e8f0 !important;
+    background-color: transparent !important;
+    outline: none !important;
+    border: none !important;
+  }
+}
+
+/* ── 首页专用容器（仅首页应用居中外框） ── */
+.home-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  background: #1c2333;
+}
+
+/* ── 外框容器 ── */
+.app-frame {
+  width: 100%;
+  max-width: 1000px;
+  background: #0d1117;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,0.04),
+    0 30px 80px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+/* ── Hero 背景 ── */
+.hero-section {
+  position: relative;
+  height: 420px;
+  background: #0a0f1e;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45;
+  mix-blend-mode: screen;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 15, 30, 0.95) 0%,
+    rgba(10, 15, 30, 0.75) 40%,
+    rgba(10, 15, 30, 0.15) 100%
+  );
+}
+
+.search-pill-glow {
+  background: rgba(30, 41, 59, 0.5);
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  border-radius: 9999px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.search-pill-glow:focus-within {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+  transform: scale(1.02);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(99, 102, 241, 0.3); border-color: rgba(99, 102, 241, 0.6); }
+}
+
+/* ── 精彩案例区 ── */
+.gallery-section {
+  background: #0a0f1c;
+  padding: 24px 20px 32px;
+}
+
+/* ── 固定尺寸卡片 ── */
+.case-card {
+  width: 210px;
+  height: 188px;
+  flex-shrink: 0;
+  background: #1a2238;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.case-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99,102,241,0.45);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+}
+
+/* 卡片封面（宽屏横向） */
+.card-cover {
+  width: 210px;
+  height: 125px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 卡片信息区 */
+.card-info {
+  padding: 8px 10px 6px;
+  height: 63px;
+}
+
+/* 状态标签 */
+.tag-pub {
+  background: rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+.tag-gen {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* 审阅中卡片的特别处理（低对比度/灰色滤镜） */
+.case-card.is-draft {
+  opacity: 0.7;
+  filter: grayscale(0.5);
+}
+.case-card.is-draft:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 20px; }
